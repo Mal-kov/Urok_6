@@ -1,284 +1,159 @@
- <meta charset="utf8" />
-<?php
-$ini_string='
-[игрушка мягкая мишка белый]
-цена = '.  mt_rand(1, 10).';
-количество заказано = '.  mt_rand(1, 10).';
-осталось на складе = '.  mt_rand(0, 10).';
-diskont = diskont'.  mt_rand(0, 2).';
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title> Lesson_6 </title>
+    </head>
+    <body>
+        <form  method="post">
+            <style>
+                .b1 {
+                    background: red; /* Синий цвет фона */ 
+                    color: black; /* Белые буквы */ 
+                    font-size: 20pt; /* Размер шрифта в пунктах */
+                }
+            </style>
+            
+            <div class="form-row-indented"> 
+                <label class="form-label-radio">
+                    <input type="radio" checked="" value="1" name="private">Частное лицо</label> 
+                <label class="form-label-radio">
+                    <input type="radio" value="0" name="private">ИП</label>
+                <label class="form-label-radio">
+                    <input type="radio" value="0" name="private">Юр.лицо </label>
+                <br></br>
+            </div>
+            
+            <div class="form-row"> 
+                <label for="fld_seller_name" class="form-label"><b id="your-name">Ваше имя</b></label>
+                <input type="text" maxlength="40" class="form-input-text" value="" name="seller_name" id="fld_seller_name">
+                <br></br>
+            </div>
+            
+            <div class="form-row"> 
+                <label for="fld_email" class="form-label"><b> Электронная почта </b></label>
+                <input type="text" class="form-input-text" value="" name="email" id="fld_email">
+                <br></br>
+            </div>
+            
+            <div class="form-row-indented"> 
+                <label class="form-label-checkbox" for="allow_mails"> 
+                    <input type="checkbox" value="1" name="allow_mails" id="allow_mails" class="form-input-checkbox">
+                    <span class="form-text-checkbox">Я не хочу получать вопросы по объявлению по e-mail</span> 
+                <br></br>
+                </label> 
+            </div>
+            
+            <div class="form-row"> 
+                <label id="fld_phone_label" for="fld_phone" class="form-label"><b>Номер телефона</b></label> 
+                <input type="text" class="form-input-text" value="" name="phone" id="fld_phone">
+                <br></br>
+            </div>
+            
+            <div id="f_location_id" class="form-row form-row-required"> 
+                <label for="region" class="form-label"><b>Город</b></label> 
+                <select title="Выберите Ваш город" name="location_id" id="region" class="form-input-select"> 
+                    <option value="">-- Выберите город --</option>
+                    <option class="opt-group" disabled="disabled">-- Города --</option>
+                    <option selected="" data-coords=",," value="641780">Новосибирск</option>
+                    <option data-coords=",," value="641490">Барабинск</option>
+                    <option data-coords=",," value="641510">Бердск</option>
+                    <option data-coords=",," value="641600">Искитим</option>
+                    <option data-coords=",," value="641630">Колывань</option>
+                    <option data-coords=",," value="641680">Краснообск</option>
+                    <option data-coords=",," value="641710">Куйбышев</option>
+                    <option data-coords=",," value="641760">Мошково</option>
+                    <option data-coords=",," value="641790">Обь</option>
+                    <option data-coords=",," value="641800">Ордынское</option>
+                    <option data-coords=",," value="641970">Черепаново</option>
+                    <option id="select-region" value="0">Выбрать другой...</option>
+                </select> 
+                <br></br>
+            </div>
     
-[одежда детская куртка синяя синтепон]
-цена = '.  mt_rand(1, 10).';
-количество заказано = '.  mt_rand(1, 10).';
-осталось на складе = '.  mt_rand(0, 10).';
-diskont = diskont'.  mt_rand(0, 2).';
-    
-[игрушка детская велосипед]
-цена = '.  mt_rand(1, 10).';
-количество заказано = '.  mt_rand(1, 10).';
-осталось на складе = '.  mt_rand(0, 10).';
-diskont = diskont'.  mt_rand(0, 2).';
-';
-$bd = parse_ini_string($ini_string, true);
-print_r($bd);
-
-
-function dickont($bd){
-    global $bd;
-    global $discont;
-    if ($bd['игрушка мягкая мишка белый']['diskont'] == 'diskont0'){
-        echo 'Скидка на товар отсутствует'. "\n";
-        $discont=1;
-    }elseif ($bd['игрушка мягкая мишка белый']['diskont'] == 'diskont1') {
-        echo 'Скидка на товар составляет = 10 %'. "\n";
-        $discont=2;
-    }elseif ($bd['игрушка мягкая мишка белый']['diskont'] == 'diskont2'){
-        echo 'Скидка на товар составляет = 20 %'. "\n";
-        $discont=3;
-    }else{
-        echo 'Ну вот, опять что-то не так...??? ';
-    }
-    return $discont;
-}
-
-$cena= array(
-     $bd['игрушка мягкая мишка белый']['цена'],
-     $bd['одежда детская куртка синяя синтепон']['цена'],
-     $bd['игрушка детская велосипед']['цена']);
-$zakaz= array(
-     $bd['игрушка мягкая мишка белый']['количество заказано'],
-     $bd['одежда детская куртка синяя синтепон']['количество заказано'],
-     $bd['игрушка детская велосипед']['количество заказано']);
-$ostatok= array(
-     $bd['игрушка мягкая мишка белый']['осталось на складе'],
-     $bd['одежда детская куртка синяя синтепон']['осталось на складе'],
-     $bd['игрушка детская велосипед']['осталось на складе']);
-$ostatok= array(
-     $bd['игрушка мягкая мишка белый']['осталось на складе'],
-     $bd['одежда детская куртка синяя синтепон']['осталось на складе'],
-     $bd['игрушка детская велосипед']['осталось на складе']);
-
-
-
-
-
-
-
-
-
-?>
-
-
- function dickont1($bd){
-    global $bd;
-    global $discont;
-    if ($bd['игрушка мягкая мишка белый']['diskont'] == 'diskont0'){
-        echo 'Скидка на товар отсутствует'. "\n";
-        $discont=1;
-        return $discont;
-    }elseif ($bd['игрушка мягкая мишка белый']['diskont'] == 'diskont1') {
-        echo 'Скидка на товар составляет = 10 %'. "\n";
-        $discont=2;
-        return $discont;
-    }elseif ($bd['игрушка мягкая мишка белый']['diskont'] == 'diskont2'){
-        echo 'Скидка на товар составляет = 20 %'. "\n";
-        $discont=3;
-        return $discont;
-    }else{
-        echo 'Ну вот, опять что-то не так...??? ';
-    }
-}
-function dickont2($param){
-    global $param;
-    global $discont2;
-    if ($param == 'diskont0'){
-        echo 'Скидка на товар отсутствует'. "\n";
-        $discont2=1;
-        return $discont2;
-    }elseif ($param == 'diskont1') {
-        echo 'Скидка на товар составляет = 10 %'. "\n";
-        $discont2=2;
-        return $discont2;
-    }elseif ($param == 'diskont2'){
-        echo 'Скидка на товар составляет = 20 %'. "\n";
-        $discont2=3;
-        return $discont2;
-    }else{
-        echo 'Ну вот, опять что-то не так...??? ';
-    }
-}
-function dickont3($unit){
-    global $unit;
-    global $discont3;
-    global $zakaz3;
-    if ($zakaz3 >= 3){
-        echo 'Скидка на товар составляет = 30 %'. "\n";
-        $discont3=4;
-        return $discont3;
-    }elseif ($unit == 'diskont0'){
-        echo 'Скидка на товар отсутствует'. "\n";
-        $discont3=1;
-        return $discont3;
-    }elseif ($unit == 'diskont1') {
-        echo 'Скидка на товар составляет = 10 %'. "\n";
-        $discont3=2;
-        return $discont3;
-    }elseif ($unit == 'diskont2'){
-        echo 'Скидка на товар составляет = 20 %'. "\n";
-        $discont3=3;
-        return $discont3;
-    }else{
-        echo 'Ну вот, опять что-то не так...??? ';
-    }
-}
-echo 'Корзина: ', "\n";
-$cena1= (int)($bd['игрушка мягкая мишка белый']['цена']);
-$zakaz1= (int)($bd['игрушка мягкая мишка белый']['количество заказано']);
-$ostatok1= (int)($bd['игрушка мягкая мишка белый']['осталось на складе']);
-switch ($bd){
-    case ($ostatok1==0):
-        echo 'Уведомление: К сожалению позиция "Игрушка мягкая мишка белый" в данный момент отсутсвует на складе'. "\n";
-        $itog1=0;
-        break;
-    case ($zakaz1 > $ostatok1):
-        echo 'Наименование товара: " Игрушка мягкая мишка белый "', "\n";
-        echo 'Уведомление: в настоящее время товар доступен в колличестве = ', $ostatok1, "\n";
-        echo 'Цена за штуку = ', $cena1, "\n";
-        dickont1($bd);
-            if ($discont==1){
-                echo 'Итоговая стоимость товара = ', $ostatok1 *$cena1;
-                $itog1=$ostatok1 *$cena1;
-            }elseif ($discont==2){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $ostatok1*$cena1*0.9, "\n";
-                $itog1=$ostatok1 *$cena1*0.9;
-            }elseif ($discont==3){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $ostatok1*$cena1*0.8, "\n";
-                $itog1=$ostatok1 *$cena1*0.8;
-            }else {
-                echo 'Ну вот, опять что-то не так...??? ';
-            }
-        break;
-    case ($zakaz1 <= $ostatok1):
-        echo 'Наименование товара: " Игрушка мягкая мишка белый "', "\n";
-        echo 'Товар доступен в колличестве = ', $zakaz1, "\n";
-        echo 'Цена за штуку = ', $cena1, "\n";
-        dickont1($bd);
-            if ($discont==1){
-                echo 'Итоговая стоимость товара = ', $zakaz1*$cena1;
-                $itog1=$zakaz1 *$cena1;
-            }elseif ($discont==2){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $zakaz1 *$cena1*0.9, "\n";
-                $itog1=$zakaz1 *$cena1*0.9;
-            }elseif ($discont==3){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $zakaz1 *$cena1*0.8, "\n";
-                $itog1=$zakaz1 *$cena1*0.8;
-            }else {
-                echo 'Ну вот, опять что-то не так...??? ';
-            }
-        break;
-}
-echo "\n", "\n";
-$param= ($bd['одежда детская куртка синяя синтепон']['diskont']);
-$cena2= (int)($bd['одежда детская куртка синяя синтепон']['цена']);
-$zakaz2= (int)($bd['одежда детская куртка синяя синтепон']['количество заказано']);
-$ostatok2= (int)($bd['одежда детская куртка синяя синтепон']['осталось на складе']);
-switch ($bd){
-    case ($ostatok2==0):
-        echo 'Уведомление: К сожалению позиция " Одежда детская куртка синяя синтепон " в данный момент отсутсвует на складе'. "\n";
-        $itog2=0;
-        break;
-    case ($zakaz2 > $ostatok2):
-        echo 'Наименование товара: " Одежда детская куртка синяя синтепон "', "\n";
-        echo 'Уведомление: в настоящее время товар доступен в колличестве = ', $ostatok2, "\n";
-        echo 'Цена за штуку = ', $cena2, "\n";
-        dickont2($param);
-            if ($discont2==1){
-                echo 'Итоговая стоимость товара = ', $ostatok2 *$cena2;
-                $itog2=$ostatok2 *$cena2;
-            }elseif ($discont2==2){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $ostatok2*$cena2*0.9, "\n";
-                $itog2=$ostatok2 *$cena2*0.9;
-            }elseif ($discont2==3){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $ostatok2*$cena2*0.8, "\n";
-                $itog2=$ostatok2 *$cena2*0.8;
-            }else {
-                echo 'Ну вот, опять что-то не так...??? ';
-            }
-        break;
-    case ($zakaz2 <= $ostatok2):
-        echo 'Наименование товара: " Одежда детская куртка синяя синтепон "', "\n";
-        echo 'Товар доступен в колличестве = ', $zakaz2, "\n";
-        echo 'Цена за штуку = ', $cena2, "\n";
-        dickont2($param);
-            if ($discont2==1){
-                echo 'Итоговая стоимость товара = ', $zakaz2*$cena2;
-                $itog2=$zakaz2 *$cena2;
-            }elseif ($discont2==2){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $zakaz2 *$cena2*0.9, "\n";
-                $itog2=$zakaz2 *$cena2*0.9;
-            }elseif ($discont2==3){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $zakaz2 *$cena2*0.8, "\n";
-                $itog2=$zakaz2 *$cena2*0.8;
-            }else {
-                echo 'Ну вот, опять что-то не так...??? ';
-            }
-        break;
-}     
-
-echo "\n", "\n";
-$unit= ($bd['игрушка детская велосипед']['diskont']);
-$cena3= (int)($bd['игрушка детская велосипед']['цена']);
-$zakaz3= (int)($bd['игрушка детская велосипед']['количество заказано']);
-$ostatok3= (int)($bd['игрушка детская велосипед']['осталось на складе']);
-switch ($bd){
-    case ($ostatok3==0):
-        echo 'Уведомление: К сожалению позиция " Игрушка детская велосипед " в данный момент отсутсвует на складе'. "\n";
-        $itog3=0;
-        break;
-    case ($zakaz3 > $ostatok3):
-        echo 'Наименование товара: " Игрушка детская велосипед "', "\n";
-        echo 'Уведомление: в настоящее время товар доступен в колличестве = ', $ostatok3, "\n";
-        echo 'Цена за штуку = ', $cena3, "\n";
-        dickont3($unit);
-            if ($discont3==1){
-                echo 'Итоговая стоимость товара = ', $ostatok3 *$cena3;
-                $itog3= $ostatok3*$cena3;
-            }elseif ($discont3==2){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $ostatok3*$cena3*0.9, "\n";
-                $itog3= $ostatok3*$cena3*0.9;
-            }elseif ($discont3==3){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $ostatok3*$cena3*0.8, "\n";
-                $itog3= $ostatok3*$cena3*0.8;
-            }elseif ($discont3==4){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $ostatok3*$cena3*0.7, "\n";
-                $itog3= $ostatok3*$cena3*0.7;
-            }else {
-                echo 'Ну вот, опять что-то не так...??? ';
-            }
-        break;
-    case ($zakaz3 <= $ostatok3):
-        echo 'Наименование товара: " Игрушка детская велосипед "', "\n";
-        echo 'Товар доступен в колличестве = ', $zakaz3, "\n";
-        echo 'Цена за штуку = ', $cena3, "\n";
-        dickont3($unit);
-            if ($discont3==1){
-                echo 'Итоговая стоимость товара = ', $zakaz3*$cena3;
-                $itog3= $zakaz3*$cena3;
-            }elseif ($discont3==2){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $zakaz3 *$cena3*0.9, "\n";
-                $itog3= $zakaz3 *$cena3*0.9;
-            }elseif ($discont3==3){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $zakaz3 *$cena3*0.8, "\n";
-                $itog3= $zakaz3 *$cena3*0.8;
-            }elseif ($discont3==4){
-                echo 'Итоговая стоимость товара с учетом скидки = '. $zakaz3*$cena3*0.7, "\n";
-                $itog3= $zakaz3 *$cena3*0.7;
-            }else {
-                echo 'Ну вот, опять что-то не так...??? ';
-            }
-        break;
-} 
-echo "\n", "\n";
-echo 'Итого: ', $itog1+$itog2+$itog3 ;
-
-?>
+            <div class="form-row"> 
+                <label for="fld_category_id" class="form-label"><b>Категория</b></label> 
+                <select title="Выберите категорию объявления" name="category_id" id="fld_category_id" class="form-input-select"> 
+                    <option value="">-- Выберите категорию --</option>
+                    <optgroup label="Транспорт"><option value="9">Автомобили с пробегом</option>
+                        <option value="109">Новые автомобили</option><option value="14">Мотоциклы и мототехника</option><option value="81">Грузовики и спецтехника</option><option value="11">Водный транспорт</option><option value="10">Запчасти и аксессуары</option>
+                    </optgroup>
+                    <optgroup label="Недвижимость">
+                        <option value="24">Квартиры</option>
+                        <option value="23">Комнаты</option>
+                        <option value="25">Дома, дачи, коттеджи</option>
+                        <option value="26">Земельные участки</option>
+                        <option value="85">Гаражи и машиноместа</option>
+                        <option value="42">Коммерческая недвижимость</option>
+                        <option value="86">Недвижимость за рубежом</option>
+                    </optgroup>
+                    <optgroup label="Работа">
+                        <option value="111">Вакансии (поиск сотрудников)</option>
+                        <option value="112">Резюме (поиск работы)</option>
+                    </optgroup>
+                    <optgroup label="Услуги">
+                        <option value="114">Предложения услуг</option>
+                        <option value="115">Запросы на услуги</option>
+                    </optgroup>
+                    <optgroup label="Личные вещи">
+                        <option value="27">Одежда, обувь, аксессуары</option>
+                        <option value="29">Детская одежда и обувь</option>
+                        <option value="30">Товары для детей и игрушки</option>
+                        <option value="28">Часы и украшения</option>
+                        <option value="88">Красота и здоровье</option>
+                    </optgroup>
+                    <optgroup label="Для дома и дачи">
+                        <option value="21">Бытовая техника</option>
+                        <option value="20">Мебель и интерьер</option>
+                        <option value="87">Посуда и товары для кухни</option>
+                        <option value="82">Продукты питания</option>
+                        <option value="19">Ремонт и строительство</option>
+                        <option value="106">Растения</option>
+                    </optgroup>
+                    <optgroup label="Бытовая электроника">
+                        <option value="32">Аудио и видео</option>
+                        <option value="97">Игры, приставки и программы</option>
+                        <option value="31">Настольные компьютеры</option>
+                        <option value="98">Ноутбуки</option>
+                        <option value="99">Оргтехника и расходники</option>
+                        <option value="96">Планшеты и электронные книги</option>
+                        <option value="84">Телефоны</option>
+                        <option value="101">Товары для компьютера</option><option value="105">Фототехника</option>
+                    </optgroup>
+                    <optgroup label="Хобби и отдых">
+                        <option value="33">Билеты и путешествия</option><option value="34">Велосипеды</option><option value="83">Книги и журналы</option><option value="36">Коллекционирование</option><option value="38">Музыкальные инструменты</option><option value="102">Охота и рыбалка</option><option value="39">Спорт и отдых</option><option value="103">Знакомства</option>
+                    </optgroup>
+                    <optgroup label="Животные"><option value="89">Собаки</option><option value="90">Кошки</option><option value="91">Птицы</option><option value="92">Аквариум</option><option value="93">Другие животные</option><option value="94">Товары для животных</option>
+                    </optgroup>
+                    <optgroup label="Для бизнеса"><option value="116">Готовый бизнес</option><option value="40">Оборудование для бизнеса</option>
+                    </optgroup>
+                </select> 
+                <br></br>
+            </div>
+            
+            <div id="f_title" class="form-row f_title"> 
+                <label for="fld_title" class="form-label"><b>Название объявления</b></label> 
+                <input type="text" maxlength="50" class="form-input-text-long" value="" name="title" id="fld_title"> 
+                <br></br>
+            </div>
+            
+            <div class="form-row"> 
+                <label for="fld_description" class="form-label" id="js-description-label"><b>Описание объявления</b></label> 
+                <textarea maxlength="3000" name="description" id="fld_description" class="form-input-textarea"></textarea> 
+                <br></br>
+            </div>
+            
+            <div id="price_rw" class="form-row"> 
+                <label id="price_lbl" for="fld_price" class="form-label"><b>Цена</b></label> 
+                <input type="text" maxlength="9" class="form-input-text-short" value="0" name="price" id="fld_price">&nbsp;<span id="fld_price_title">руб.</span>
+                <br></br>
+            </div>
+            
+            <div class="form-row-indented form-row-submit b-vas-submit" id="js_additem_form_submit">
+                <div class="vas-submit-button pull-left"> 
+                    <span class="vas-submit-border"></span> 
+                    <span class="vas-submit-triangle"></span> 
+                    <input type="submit" value="Отправить" id="form_submit" name="main_form_submit" class="vas-submit-input, b1"> 
+                </div>
+            </div>
+</form>
